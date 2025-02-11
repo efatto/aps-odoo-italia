@@ -6,7 +6,7 @@
     "version": "16.0.1.0.0",
     "development_status": "Alpha",
     "category": "Productivity/Discuss",
-    "website": "https://github.com/OCA/social",
+    "website": "https://github.com/efatto/aps-odoo-italia",
     "author": "Sergio Corato, Odoo Community Association (OCA)",
     "maintainers": ["sergiocorato"],
     "license": "AGPL-3",
