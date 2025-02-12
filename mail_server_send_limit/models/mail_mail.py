@@ -17,10 +17,17 @@ class MailMail(models.Model):
             if not limit_per_hour:
                 continue
             current_hour_sent_group = mail_server._get_current_hour_sent_group()
-            if max([current_hour_sent_group, len(self.ids)]) >= limit_per_hour:
+            if current_hour_sent_group or len(self.ids) >= limit_per_hour:
                 tobe_postponed_emails = self
-                if len(self.ids) >= limit_per_hour:
-                    tobe_postponed_emails = self[limit_per_hour:]
+                # we postpone some mail only in case they are less than the limit
+                if current_hour_sent_group < limit_per_hour:
+                    tobe_postponed_emails = self[
+                        limit_per_hour - current_hour_sent_group :
+                    ]
+                if len(self.ids) >= limit_per_hour > current_hour_sent_group:
+                    tobe_postponed_emails = self[
+                        limit_per_hour - current_hour_sent_group :
+                    ]
                 self -= tobe_postponed_emails
                 # set scheduled_date for email exceeding the hourly limit
                 current_i = 0
